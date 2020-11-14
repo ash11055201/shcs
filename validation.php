@@ -1,23 +1,20 @@
 <?php 
 		include 'dbcon.php';
-		header('location:home.php');
+		// header('location:home.php');
 		
+		session_start();
 		$username = $_POST['username'];
 		$password = $_POST['password'];
 
-		$email_search = " select * from registration where username='$username/' ";
+		$email_search = " select * from registration where username='$username' && password='$password' ";
 		$query = mysqli_query($con,$email_search);
 		$email_count = mysqli_num_rows($query);
-		if($email_count){
-			$email_pass = mysqli_fetch_assoc($query);
-			$db_pass = $email_pass['password'];
-			$pass_decode = password_verify($password,$db_pass);
-			if($pass_decode){
-				echo"login success";
+		if($email_count == 1){
+			print "Hello world!";
+				header('location:home.php');
 			}
 			else{
-				echo"incorrect";
+				print "Hello world!";
+				header('location:login.php');
 			}
-		}
-	
 	?>
